@@ -1,10 +1,12 @@
 const isAdmin = (req, res, next) => {
-    if (req.user && req.user.isAdmin) {
-      next();
-    } else {
-      res.status(403).json({ message: 'Access denied, not an admin' });
-    }
-  };
-  
-  module.exports = isAdmin;
-  
+  console.log("isAdmin middleware activated. User info:", req.user); // Log user info
+
+  if (req.user && req.user.isAdmin) {
+    next();
+  } else {
+    console.error("Access denied, not an admin");
+    res.status(403).json({ message: 'Access denied, not an admin' });
+  }
+};
+
+module.exports = isAdmin;
