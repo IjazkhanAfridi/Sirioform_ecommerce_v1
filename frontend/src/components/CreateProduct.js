@@ -12,16 +12,20 @@ function CreateProduct() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:5000/api/products', {
-        code,
-        title,
-        description,
-        price1,
-        price2,
-        price3
-      }, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
+      const res = await axios.post(
+        'http://localhost:5000/api/products',
+        {
+          code,
+          title,
+          description,
+          price1,
+          price2,
+          price3,
+        },
+        {
+          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+        }
+      );
       alert('Product created successfully!');
       // Reset the form
       setCode('');
@@ -42,29 +46,59 @@ function CreateProduct() {
       <form onSubmit={handleSubmit}>
         <div>
           <label>Code:</label>
-          <input type="text" value={code} onChange={(e) => setCode(e.target.value)} required />
+          <input
+            type='text'
+            value={code}
+            onChange={(e) => setCode(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label>Title:</label>
-          <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} required />
+          <input
+            type='text'
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label>Description:</label>
-          <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} required />
+          <input
+            type='text'
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label>Price 1:</label>
-          <input type="number" value={price1} onChange={(e) => setPrice1(e.target.value)} required />
+          <input
+            type='number'
+            value={price1}
+            onChange={(e) => setPrice1(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label>Price 2:</label>
-          <input type="number" value={price2} onChange={(e) => setPrice2(e.target.value)} required />
+          <input
+            type='number'
+            value={price2}
+            onChange={(e) => setPrice2(e.target.value)}
+            required
+          />
         </div>
         <div>
           <label>Price 3:</label>
-          <input type="number" value={price3} onChange={(e) => setPrice3(e.target.value)} required />
+          <input
+            type='number'
+            value={price3}
+            onChange={(e) => setPrice3(e.target.value)}
+            required
+          />
         </div>
-        <button type="submit">Create Product</button>
+        <button type='submit'>Create Product</button>
       </form>
     </div>
   );

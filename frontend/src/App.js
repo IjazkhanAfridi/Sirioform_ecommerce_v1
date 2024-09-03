@@ -9,6 +9,7 @@ import ProductManagement from './pages/ProductManagement';
 import OrderManagement from './pages/OrderManagement';
 import CreateProduct from './pages/CreateProduct';
 import AdminOrders from './pages/AdminOrders'; 
+import Checkout from './pages/Checkout';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/payment" element={<Checkout />} />
         <Route path="/admin/dashboard" element={<AdminDashboard />} />
         <Route path="/admin/products" element={<ProductManagement />} />
         <Route path="/admin/orders" element={<OrderManagement />} />

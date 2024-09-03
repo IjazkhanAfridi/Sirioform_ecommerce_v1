@@ -23,7 +23,7 @@ app.use('/api/auth', authRoutes); // Rotta per l'autenticazione
 app.use('/api/products', productRoutes); // Rotta per i prodotti
 app.use('/api/orders', orderRoutes); // Rotta per gli ordini
 app.use('/api/admin/orders', orderRoutes); // Rotta per gli ordini amministrativi (aggiunta)
-
+app.use('/api/payment', paymentRoutes); 
 // Start the server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
