@@ -53,6 +53,7 @@ function AdminOrders() {
             <th scope='col'>User Name</th>
             <th scope='col'>Product Name</th>
             <th scope='col'>Product Quantity</th>
+            <th scope='col'>Order Date</th>
             <th scope='col'>Total Price</th>
             <th scope='col'></th>
           </tr>
@@ -99,6 +100,9 @@ function AdminOrders() {
                         </span>
                       ))}
                     </td>
+                    <td>
+                      {order?.createdAt?.split('T')[0]}
+                    </td>
                     <td>{order.totalPrice}</td>
                     <td>
                       {' '}
@@ -139,6 +143,7 @@ function AdminOrders() {
               </div>
               <div className="modal-body">
                 <p><strong>Order ID:</strong> {selectedOrder._id}</p>
+                <p><strong>Order Date:</strong> {selectedOrder?.createdAt?.split('T')[0]}</p>
                 <p><strong>Customer Name:</strong> {selectedOrder.userId?.firstName} {selectedOrder.userId?.lastName}</p>
                 <p><strong>Products:</strong></p>
                 <ul>

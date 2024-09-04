@@ -140,6 +140,8 @@ function Dashboard() {
                         state: {
                           productId: product?._id,
                           quantity: quantities[product?._id] || 1,
+                          totalPrice: calculatePrice(product, quantities[product._id] || 1),
+                          productName:product.title,
                         },
                       })
                     }
@@ -163,6 +165,7 @@ function Dashboard() {
             <th scope='col'>#Order Id</th>
             <th scope='col'>Product Name</th>
             <th scope='col'>Product Quantity</th>
+            <th scope='col'>Order Date</th>
             <th scope='col'>Total Price</th>
             <th scope='col'></th>
           </tr>
@@ -187,6 +190,9 @@ function Dashboard() {
                           {item.quantity}
                         </span>
                       ))}
+                    </td>
+                    <td>
+                      {order?.createdAt?.split('T')[0]}
                     </td>
                     <td>{order.totalPrice}</td>
                     <td>
@@ -240,10 +246,13 @@ function Dashboard() {
                   <strong>Order ID:</strong> {selectedOrder._id}
                 </p>
                 <p>
-                  <strong>Customer Name:</strong>{' '}
-                  {selectedOrder.userId?.firstName}{' '}
-                  {selectedOrder.userId?.lastName}
+                  <strong>Order Date:</strong> {selectedOrder.createdAt?.split('T')[0]}
                 </p>
+                {/* <p>
+                  <strong>Customer Name:</strong>
+                  {selectedOrder.userId?.firstName}
+                  {selectedOrder.userId?.lastName}
+                </p> */}
                 <p>
                   <strong>Products:</strong>
                 </p>

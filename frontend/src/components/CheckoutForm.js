@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useStripe, useElements, PaymentElement } from '@stripe/react-stripe-js';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const CheckoutForm = ({ productId, quantity, onOrderSuccess }) => {
+  const navigate = useNavigate()
   const stripe = useStripe();
   const elements = useElements();
   const [message, setMessage] = useState(null);
@@ -20,6 +22,9 @@ const CheckoutForm = ({ productId, quantity, onOrderSuccess }) => {
     const result = await stripe.confirmPayment({
       elements,
       redirect: 'if_required',
+      // confirmParams: {
+      //   return_url: "http://localhost:3000/dashboard",
+      // },
     });
 
     if (result.error) {
@@ -46,8 +51,9 @@ const CheckoutForm = ({ productId, quantity, onOrderSuccess }) => {
           headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
         }
       );
-      alert('Order placed successfully!');
+      alert('Order placed successfully!')
       onOrderSuccess(res.data);
+      navigate('/dashboard');
     } catch (err) {
       alert("Error placing the order");
     }
