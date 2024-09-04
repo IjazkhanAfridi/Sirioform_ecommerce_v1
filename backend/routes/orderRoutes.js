@@ -78,7 +78,7 @@ router.post('/', auth, async (req, res) => {
 router.get('/', auth, async (req, res) => {
   console.log("GET /api/orders - Fetching user orders"); // Log
   try {
-    const orders = await Order.find({ userId: req.user._id });
+    const orders = await Order.find({ userId: req.user._id }).populate('orderItems.productId', 'title');
     console.log("User orders fetched:", orders); // Log fetched orders
     res.json(orders);
   } catch (err) {

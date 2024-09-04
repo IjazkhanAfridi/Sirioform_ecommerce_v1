@@ -32,7 +32,7 @@ const getAllOrders = async (req, res) => {
   try {
       if (req.user.isAdmin) {
           console.log('User is admin, fetching all orders...');
-          const orders = await Order.find({}).populate('userId', 'firstName lastName');
+          const orders = await Order.find({}).populate('userId orderItems.productId', 'firstName lastName title');
           console.log('Orders fetched with populate:', orders);
           res.json(orders);
       } else {
