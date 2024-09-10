@@ -104,6 +104,10 @@ function OrdersPage() {
                   {selectedOrder.orderItems.map((item) => (
                     <li key={item._id}>
                       {item.productId?.title} - Quantità: {item.quantity} - Prezzo: {item.price}
+                      <div>
+                        <h6>Kit Number:</h6>
+                        {item?.progressiveNumbers?.map(progressivenumbers=><p className='ps-2'>{progressivenumbers}</p>)}
+                      </div>
                     </li>
                   ))}
                 </ul>

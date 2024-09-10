@@ -45,10 +45,11 @@ function ProductsPage() {
     }
   };
 
-  const handlePurchase = (productId) => {
+  const handlePurchase = (productId,productName) => {
     const quantity = quantities[productId] || 1;
     navigate('/payment', {
       state: {
+        productName:productName,
         productId: productId,
         quantity: quantity,
         totalPrice: calculatePrice(products.find((p) => p._id === productId), quantity),
@@ -85,7 +86,7 @@ function ProductsPage() {
                     className="form-control mb-3"
                   />
                   <button
-                    onClick={() => handlePurchase(product._id)}
+                    onClick={() => handlePurchase(product?._id,product?.title)}
                     className="btn btn-primary mt-auto"
                   >
                     Acquista
