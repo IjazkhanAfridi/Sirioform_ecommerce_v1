@@ -8,8 +8,12 @@ import AdminDashboard from './pages/AdminDashboard';
 import ProductManagement from './pages/ProductManagement';
 import OrderManagement from './pages/OrderManagement';
 import CreateProduct from './pages/CreateProduct';
-import AdminOrders from './pages/AdminOrders'; 
+import AdminOrders from './pages/AdminOrders';
 import Checkout from './pages/Checkout';
+import CreateDiscente from './pages/CreateDiscente';
+import ProductsPage from './pages/ProductsPage';
+import OrdersPage from './pages/OrdersPage';
+import ListaDiscentiPage from './pages/ListaDiscentiPage';  // Importa la nuova pagina ListaDiscenti
 
 function App() {
   return (
@@ -25,6 +29,10 @@ function App() {
         <Route path="/admin/orders" element={<OrderManagement />} />
         <Route path="/admin/create-product" element={<CreateProduct />} />
         <Route path="/admin/all-orders" element={<AdminOrders />} />
+        <Route path="/create-discente" element={<CreateDiscente />} />
+        <Route path="/products" element={<ProductsPage />} />
+        <Route path="/orders" element={<OrdersPage />} />
+        <Route path="/lista-discenti" element={<ListaDiscentiPage />} />  {/* Aggiungi la rotta per ListaDiscenti */}
       </Routes>
     </Router>
   );
