@@ -7,7 +7,10 @@ const { getAllOrders } = require('../controllers/orderController');
 const isAdmin = require('../middleware/isAdmin');
 
 let globalProgressiveCounter = 1; // Global progressive counter
-
+const extractProgressiveNumber = (progressiveNumber) => {
+  const parts = progressiveNumber.split('-');
+  return parseInt(parts[1], 10); // Extract the number after the year prefix
+};
 // Route to create an order
 router.post('/', auth, async (req, res) => {
   console.log("POST /api/orders - Order creation started"); // Log
@@ -18,6 +21,22 @@ router.post('/', auth, async (req, res) => {
       console.log("User information missing during order creation");
       return res.status(400).json({ message: "User information is missing." });
     }
+
+    const orders = await Order.find();
+    let maxProgressiveNumber = 0;
+
+    orders.forEach(order => {
+      order.orderItems.forEach(item => {
+        item.progressiveNumbers.forEach(pn => {
+          const num = extractProgressiveNumber(pn);
+          if (num > maxProgressiveNumber) {
+            maxProgressiveNumber = num;
+          }
+        });
+      });
+    });
+
+    console.log(`Max progressive number found: ${maxProgressiveNumber}`);
 
     const orderItems = [];
     let totalPrice = 0;
@@ -39,21 +58,20 @@ router.post('/', auth, async (req, res) => {
       } else {
         price = product.price3;
       }
-      console.log(`Price determined for productId ${productIds[i]}: ${price}`); // Log
+      console.log(`Price determined for productId ${productIds[i]}: ${price}`); 
 
       // Generate progressive numbers
       const progressiveNumbers = [];
       for (let j = 0; j < quantities[i]; j++) {
-        progressiveNumbers.push(`${currentYear}-${String(globalProgressiveCounter).padStart(7, '0')}`);
-        globalProgressiveCounter++; // Increment global counter
+        maxProgressiveNumber++;
+        progressiveNumbers.push(`${currentYear}-${String(maxProgressiveNumber).padStart(7, '0')}`);
       }
-      console.log(`Generated progressiveNumbers for productId ${productIds[i]}: ${progressiveNumbers}`); // Log
 
       orderItems.push({
         productId: productIds[i],
         quantity: quantities[i],
         price: price,
-        progressiveNumbers: progressiveNumbers // Add progressive numbers
+        progressiveNumbers: progressiveNumbers
       });
 
       totalPrice += price * quantities[i];
