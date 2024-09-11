@@ -48,5 +48,34 @@ const getAllOrders = async (req, res) => {
   console.log('--- Exiting getAllOrders ---');
 };
 
-module.exports = { createOrder, getAllOrders };
+// Funzione per ottenere i prodotti acquistati dall'utente
+const getProdottiAcquistati = async (req, res) => {
+  try {
+    // Trova tutti gli ordini dell'utente
+    const orders = await Order.find({ userId: req.user._id }).populate('orderItems.productId');
 
+    // Estrai i prodotti acquistati dall'utente con il totale delle quantità
+    const prodottiAcquistati = orders.reduce((acc, order) => {
+      order.orderItems.forEach((item) => {
+        const prodotto = acc.find(prod => prod._id.equals(item.productId._id));
+        if (prodotto) {
+          prodotto.quantity += item.quantity;  // Aggiungi le quantità se il prodotto esiste già
+        } else {
+          acc.push({
+            _id: item.productId._id,
+            title: item.productId.title,
+            quantity: item.quantity,  // Inizializza la quantità
+          });
+        }
+      });
+      return acc;
+    }, []);
+
+    res.status(200).json(prodottiAcquistati);
+  } catch (err) {
+    console.error('Errore durante il recupero dei prodotti acquistati:', err);
+    res.status(500).json({ message: 'Errore durante il recupero dei prodotti acquistati' });
+  }
+};
+
+module.exports = { createOrder, getAllOrders, getProdottiAcquistati }; // Aggiungi la nuova funzione

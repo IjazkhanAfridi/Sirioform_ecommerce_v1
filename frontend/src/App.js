@@ -13,7 +13,10 @@ import Checkout from './pages/Checkout';
 import CreateDiscente from './pages/CreateDiscente';
 import ProductsPage from './pages/ProductsPage';
 import OrdersPage from './pages/OrdersPage';
-import ListaDiscentiPage from './pages/ListaDiscentiPage';  // Importa la nuova pagina ListaDiscenti
+import ListaDiscentiPage from './pages/ListaDiscentiPage';
+import CreateCorso from './pages/CreateCorso';
+import Store from './pages/Store';  // Importa la pagina Store
+import StoreDetails from './pages/StoreDetails';  // Importa la pagina StoreDetails
 
 function App() {
   return (
@@ -32,7 +35,12 @@ function App() {
         <Route path="/create-discente" element={<CreateDiscente />} />
         <Route path="/products" element={<ProductsPage />} />
         <Route path="/orders" element={<OrdersPage />} />
-        <Route path="/lista-discenti" element={<ListaDiscentiPage />} />  {/* Aggiungi la rotta per ListaDiscenti */}
+        <Route path="/lista-discenti" element={<ListaDiscentiPage />} />
+        <Route path="/create-corso" element={<CreateCorso />} />
+
+        {/* Nuove rotte per Store e StoreDetails */}
+        <Route path="/store" element={<Store />} />  {/* Aggiungi la rotta per Store */}
+        <Route path="/store/:productId" element={<StoreDetails />} />  {/* Aggiungi la rotta per StoreDetails */}
       </Routes>
     </Router>
   );

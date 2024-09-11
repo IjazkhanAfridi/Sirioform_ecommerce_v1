@@ -3,7 +3,7 @@ const router = express.Router();
 const Order = require('../models/Order');
 const Product = require('../models/Product');
 const auth = require('../middleware/authMiddleware');
-const { getAllOrders } = require('../controllers/orderController');
+const { getAllOrders, getProdottiAcquistati } = require('../controllers/orderController'); // Importa getProdottiAcquistati
 const isAdmin = require('../middleware/isAdmin');
 
 let globalProgressiveCounter = 1; // Global progressive counter
@@ -11,6 +11,7 @@ const extractProgressiveNumber = (progressiveNumber) => {
   const parts = progressiveNumber.split('-');
   return parseInt(parts[1], 10); // Extract the number after the year prefix
 };
+
 // Route to create an order
 router.post('/', auth, async (req, res) => {
   console.log("POST /api/orders - Order creation started"); // Log
@@ -107,5 +108,8 @@ router.get('/', auth, async (req, res) => {
 
 // Route to get all orders (admin only)
 router.get('/admin/orders', auth, isAdmin, getAllOrders);
+
+// Nuova rotta per ottenere i prodotti acquistati
+router.get('/acquistati', auth, getProdottiAcquistati);  // Aggiungi questa rotta
 
 module.exports = router;

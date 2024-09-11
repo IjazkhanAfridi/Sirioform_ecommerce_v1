@@ -40,6 +40,22 @@ function Dashboard() {
       >
         Lista Discenti
       </button>
+
+      {/* Bottone per creare un corso */}
+      <button 
+        className="btn btn-primary mb-3 d-block" 
+        onClick={() => navigate('/create-corso')}
+      >
+        Crea Corso
+      </button>
+
+      {/* Bottone per visualizzare il magazzino (i miei kit) */}
+      <button 
+        className="btn btn-primary mb-3 d-block" 
+        onClick={() => navigate('/store')}
+      >
+        I miei Kit
+      </button>
     </div>
   );
 }
