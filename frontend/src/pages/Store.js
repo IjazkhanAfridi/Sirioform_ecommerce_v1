@@ -22,8 +22,8 @@ function Store() {
     fetchProdottiAcquistati();
   }, []);
 
-  const handleViewDetails = (productId) => {
-    navigate(`/store/${productId}`);
+  const handleViewDetails = (productId,data) => {
+    navigate(`/store/${productId}`,{state:{data:data}});
   };
 
   return (
@@ -48,7 +48,7 @@ function Store() {
                 <td>
                   <button
                     className="btn btn-info"
-                    onClick={() => handleViewDetails(prodotto._id)}
+                    onClick={() => handleViewDetails(prodotto._id,prodotto)}
                   >
                     Dettagli
                   </button>

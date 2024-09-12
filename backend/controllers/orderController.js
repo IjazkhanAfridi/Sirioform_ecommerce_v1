@@ -53,18 +53,21 @@ const getProdottiAcquistati = async (req, res) => {
   try {
     // Trova tutti gli ordini dell'utente
     const orders = await Order.find({ userId: req.user._id }).populate('orderItems.productId');
+    console.log('acquistati orders : ', orders);
 
     // Estrai i prodotti acquistati dall'utente con il totale delle quantità
     const prodottiAcquistati = orders.reduce((acc, order) => {
       order.orderItems.forEach((item) => {
         const prodotto = acc.find(prod => prod._id.equals(item.productId._id));
         if (prodotto) {
-          prodotto.quantity += item.quantity;  // Aggiungi le quantità se il prodotto esiste già
+          prodotto.quantity += item.quantity; 
+          prodotto.progressiveNumbers = prodotto.progressiveNumbers.concat(item.progressiveNumbers);
         } else {
           acc.push({
             _id: item.productId._id,
             title: item.productId.title,
-            quantity: item.quantity,  // Inizializza la quantità
+            quantity: item.quantity,  
+            progressiveNumbers: item.progressiveNumbers || [],  
           });
         }
       });
